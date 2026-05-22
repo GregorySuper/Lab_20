@@ -1,25 +1,30 @@
 import { useState } from 'react'
 import eventsList from '../data/events'
+import { useLanguage } from '../i18n/LanguageContext'
 import './pages.css'
 
-const monthNames = [
-  'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
-  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря',
-]
-
-// Дата "2026-05-24" -> "24 мая"
-function formatEventDate(dateString) {
-  const parts = dateString.split('-')
-  const day = Number(parts[2])
-  const monthIndex = Number(parts[1]) - 1
-  return day + ' ' + monthNames[monthIndex]
-}
-
 function Events() {
-  // Выбранный вид спорта для фильтра. "Все" — показываем все мероприятия.
+  const { language, t } = useLanguage()
+
+  // Выбранный вид спорта для фильтра ("Все" — показываем все мероприятия)
   const [selectedSport, setSelectedSport] = useState('Все')
 
-  // Собираем список видов спорта без повторов, чтобы построить кнопки фильтра
+  // Мероприятие, на которое пользователь записывается (для окна записи). null — окно закрыто.
+  const [signUpEvent, setSignUpEvent] = useState(null)
+  const [name, setName] = useState('')
+  const [contact, setContact] = useState('')
+  const [errorText, setErrorText] = useState('')
+  const [isSignedUp, setIsSignedUp] = useState(false)
+
+  // Дата "2026-05-24" -> "24 мая" (название месяца берём из словаря по языку)
+  function formatEventDate(dateString) {
+    const parts = dateString.split('-')
+    const day = Number(parts[2])
+    const monthIndex = Number(parts[1]) - 1
+    return day + ' ' + t.monthsGenitive[monthIndex]
+  }
+
+  // Собираем список видов спорта без повторов (храним русские ключи, показываем перевод)
   const sports = ['Все']
   eventsList.forEach((event) => {
     if (!sports.includes(event.sport)) {
@@ -32,18 +37,34 @@ function Events() {
     return selectedSport === 'Все' || event.sport === selectedSport
   })
 
-  // Обработчик нажатия на кнопку «Записаться»
-  function handleSignUp(eventTitle) {
-    alert('Вы записаны на мероприятие: ' + eventTitle + '. Мы свяжемся с вами!')
+  // Открываем окно записи на конкретное мероприятие и очищаем форму
+  function openSignUp(event) {
+    setSignUpEvent(event)
+    setName('')
+    setContact('')
+    setErrorText('')
+    setIsSignedUp(false)
+  }
+
+  function closeSignUp() {
+    setSignUpEvent(null)
+  }
+
+  // Отправка формы записи. Без указанного контакта записаться нельзя.
+  function handleSignUpSubmit(submitEvent) {
+    submitEvent.preventDefault()
+    if (name.trim() === '' || contact.trim() === '') {
+      setErrorText(t.modal.error)
+      return
+    }
+    setErrorText('')
+    setIsSignedUp(true)
   }
 
   return (
     <section className="container page-section">
-      <h2 className="section-title">Мероприятия</h2>
-      <p className="section-lead">
-        Ближайшие турниры, тренировки и забеги клуба. Выберите вид спорта,
-        чтобы отфильтровать список.
-      </p>
+      <h2 className="section-title">{t.titles.events}</h2>
+      <p className="section-lead">{t.eventsLead}</p>
 
       {/* Кнопки фильтра по виду спорта */}
       <div className="filter-buttons">
@@ -54,7 +75,7 @@ function Events() {
             className={selectedSport === sport ? 'filter-button active' : 'filter-button'}
             onClick={() => setSelectedSport(sport)}
           >
-            {sport}
+            {sport === 'Все' ? t.all : t.sports[sport]}
           </button>
         ))}
       </div>
@@ -64,21 +85,68 @@ function Events() {
           <article key={event.id} className="event-card">
             <div className="event-date-badge">{formatEventDate(event.date)}</div>
             <div className="event-body">
-              <span className="sport-tag">{event.sport}</span>
-              <h3>{event.title}</h3>
-              <p className="event-place">📍 {event.place}</p>
-              <p>{event.description}</p>
+              <span className="sport-tag">{t.sports[event.sport]}</span>
+              <h3>{event.title[language]}</h3>
+              <p className="event-place">📍 {event.place[language]}</p>
+              <p>{event.description[language]}</p>
             </div>
             <button
               type="button"
               className="action-button"
-              onClick={() => handleSignUp(event.title)}
+              onClick={() => openSignUp(event)}
             >
-              Записаться
+              {t.signUp}
             </button>
           </article>
         ))}
       </div>
+
+      {/* Окно записи появляется только после нажатия «Записаться» */}
+      {signUpEvent && (
+        <div className="modal-overlay" onClick={closeSignUp}>
+          {/* Останавливаем всплытие, чтобы клик внутри окна его не закрывал */}
+          <div className="modal-window" onClick={(clickEvent) => clickEvent.stopPropagation()}>
+            <button type="button" className="modal-close" onClick={closeSignUp} aria-label="Закрыть">×</button>
+
+            {isSignedUp ? (
+              <div className="modal-result">
+                <h3>{t.modal.successTitle}</h3>
+                <p>{t.modal.successText(signUpEvent.title[language])}</p>
+                <button type="button" className="action-button" onClick={closeSignUp}>{t.modal.done}</button>
+              </div>
+            ) : (
+              <form className="application-form" onSubmit={handleSignUpSubmit}>
+                <h3>{t.modal.title}</h3>
+                <p className="modal-event-title">{signUpEvent.title[language]}</p>
+
+                <label>
+                  {t.modal.name}
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(inputEvent) => setName(inputEvent.target.value)}
+                    placeholder={t.modal.namePlaceholder}
+                  />
+                </label>
+
+                <label>
+                  {t.modal.contact}
+                  <input
+                    type="text"
+                    value={contact}
+                    onChange={(inputEvent) => setContact(inputEvent.target.value)}
+                    placeholder={t.modal.contactPlaceholder}
+                  />
+                </label>
+
+                {errorText && <p className="form-error">{errorText}</p>}
+
+                <button type="submit" className="action-button">{t.modal.submit}</button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   )
 }

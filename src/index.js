@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
+import { LanguageProvider } from './i18n/LanguageContext';
 
-// Точка входа приложения. Оборачиваем App в BrowserRouter — он нужен для маршрутизации.
+// Точка входа приложения. BrowserRouter нужен для маршрутизации,
+// LanguageProvider — чтобы любой компонент мог получить текущий язык и переводы.
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <LanguageProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </LanguageProvider>
   </React.StrictMode>
 );

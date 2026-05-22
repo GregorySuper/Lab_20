@@ -1,19 +1,22 @@
 import { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
+import { useLanguage } from '../i18n/LanguageContext'
 import './Header.css'
 
-// Пункты меню вынесены в массив, чтобы не дублировать разметку для каждой ссылки
+// Пункты меню: путь и ключ перевода (сам текст берём из словаря по текущему языку)
 const menuLinks = [
-  { path: '/', label: 'Новости' },
-  { path: '/team', label: 'Команда' },
-  { path: '/calendar', label: 'Календарь' },
-  { path: '/events', label: 'Мероприятия' },
-  { path: '/contacts', label: 'Контакты' },
+  { path: '/', key: 'news' },
+  { path: '/team', key: 'team' },
+  { path: '/calendar', key: 'calendar' },
+  { path: '/events', key: 'events' },
+  { path: '/contacts', key: 'contacts' },
 ]
 
 function Header() {
   // Состояние мобильного меню: открыто оно или нет
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  // Текущий язык, переводы и функция переключения языка
+  const { language, toggleLanguage, t } = useLanguage()
 
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen)
@@ -56,13 +59,25 @@ function Header() {
               className="nav-link"
               onClick={closeMenu}
             >
-              {link.label}
+              {t.nav[link.key]}
             </NavLink>
           ))}
 
+          {/* Переключатель языка: подсвечивается активный */}
+          <button
+            type="button"
+            className="lang-switch"
+            onClick={toggleLanguage}
+            aria-label="Сменить язык"
+          >
+            <span className={language === 'ru' ? 'lang-active' : ''}>RU</span>
+            <span className="lang-divider">/</span>
+            <span className={language === 'en' ? 'lang-active' : ''}>EN</span>
+          </button>
+
           {/* Главная кнопка действия — единственный красный элемент в шапке */}
           <Link to="/contacts" className="action-button header-action" onClick={closeMenu}>
-            Подать заявку
+            {t.apply}
           </Link>
         </nav>
       </div>

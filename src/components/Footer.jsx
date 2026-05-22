@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
+import { useLanguage } from '../i18n/LanguageContext'
 import './Footer.css'
 
 function Footer() {
+  const { t } = useLanguage()
   // Текущий год для копирайта вычисляем автоматически
   const currentYear = new Date().getFullYear()
 
@@ -10,36 +12,33 @@ function Footer() {
       <div className="footer-inner container">
         <div className="footer-about">
           <img src="/img/logo-ssk-white.svg" alt="Логотип ССК ЮФУ" className="footer-logo" />
-          <p>
-            Спортивный студенческий клуб ЮФУ «Южная стая».<br />
-            Объединяем студентов спортом с первого курса.
-          </p>
+          <p>{t.footer.about}</p>
         </div>
 
         <div className="footer-column">
-          <h3>Разделы</h3>
-          <Link to="/">Новости</Link>
-          <Link to="/team">Команда</Link>
-          <Link to="/calendar">Календарь</Link>
-          <Link to="/events">Мероприятия</Link>
-          <Link to="/contacts">Контакты</Link>
+          <h3>{t.footer.sectionsHeading}</h3>
+          <Link to="/">{t.nav.news}</Link>
+          <Link to="/team">{t.nav.team}</Link>
+          <Link to="/calendar">{t.nav.calendar}</Link>
+          <Link to="/events">{t.nav.events}</Link>
+          <Link to="/contacts">{t.nav.contacts}</Link>
         </div>
 
         <div className="footer-column">
-          <h3>Контакты</h3>
-          <p>г. Ростов-на-Дону, ул. Большая Садовая, 105/42</p>
-          <p>Телефон: +7 (863) 000-00-00</p>
-          <p>E-mail: ssk@sfedu.ru</p>
+          <h3>{t.footer.contactsHeading}</h3>
+          <p>{t.footer.address}</p>
+          <p>+7 (863) 218-40-00 (доб. 10705)</p>
+          <p>revenko@sfedu.ru</p>
           <div className="footer-socials">
-            <a href="https://vk.com" target="_blank" rel="noreferrer">ВКонтакте</a>
-            <a href="https://t.me" target="_blank" rel="noreferrer">Telegram</a>
+            <a href="https://vk.com/ssc_sfedu" target="_blank" rel="noreferrer">ВКонтакте</a>
+            <a href="https://t.me/ssc_sfedu" target="_blank" rel="noreferrer">Telegram</a>
           </div>
         </div>
       </div>
 
       <div className="footer-bottom">
         <div className="container">
-          © {currentYear} ССК ЮФУ «Южная стая». Сайт разработан студентом в учебных целях.
+          {t.footer.rights(currentYear)}
         </div>
       </div>
     </footer>

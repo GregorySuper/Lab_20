@@ -95,6 +95,33 @@
   border-radius: 2px;
 }
 
+/* Переключатель языка RU / EN */
+.lang-switch {
+  background: none;
+  border: 1px solid var(--gray-light);
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-family: 'Carlo Melow', Arial, sans-serif;
+  font-size: 14px;
+  color: var(--gray);
+  letter-spacing: 0.5px;
+}
+
+.lang-switch:hover {
+  border-color: var(--blue);
+}
+
+/* Активный язык выделяется тёмно-синим */
+.lang-switch .lang-active {
+  color: var(--navy);
+}
+
+.lang-switch .lang-divider {
+  margin: 0 4px;
+  color: var(--gray-light);
+}
+
 /* Мобильная версия: меню сворачивается в выпадающий список под бургером */
 @media (max-width: 900px) {
   .burger-button {

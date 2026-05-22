@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { useLanguage } from '../i18n/LanguageContext'
 import './pages.css'
 
-// Список секций для выпадающего списка в форме
-const sections = ['Баскетбол', 'Волейбол', 'Футбол', 'Лёгкая атлетика', 'Плавание', 'Настольный теннис']
+// Список секций клуба (русские ключи — перевод берётся из словаря)
+const sections = ['Волейбол', 'Баскетбол', 'Мини-футбол', 'Плавание', 'Настольный теннис', 'Бадминтон', 'Шахматы', 'Гиревой спорт']
 
 function Contacts() {
+  const { t } = useLanguage()
+
   // Отдельное состояние под каждое поле формы — так понятнее, что где хранится
   const [applicantName, setApplicantName] = useState('')
   const [contact, setContact] = useState('')
@@ -20,7 +23,7 @@ function Contacts() {
 
     // Простая проверка: имя и контакт обязательны
     if (applicantName.trim() === '' || contact.trim() === '') {
-      setErrorText('Пожалуйста, заполните имя и контакт для связи.')
+      setErrorText(t.contacts.error)
       return
     }
 
@@ -35,79 +38,78 @@ function Contacts() {
 
   return (
     <section className="container page-section">
-      <h2 className="section-title">Контакты</h2>
+      <h2 className="section-title">{t.titles.contacts}</h2>
 
       <div className="contacts-layout">
         {/* Левая колонка — контактная информация клуба */}
         <div className="contacts-info">
-          <h3>Спортивный клуб ЮФУ «Южная стая»</h3>
-          <p>📍 г. Ростов-на-Дону, ул. Большая Садовая, 105/42</p>
-          <p>📞 +7 (863) 000-00-00</p>
-          <p>✉️ ssk@sfedu.ru</p>
+          <h3>{t.contacts.clubName}</h3>
+          <p className="contacts-department">{t.contacts.department}</p>
+          <p>📍 {t.contacts.address}</p>
+          <p>📞 +7 (863) 218-40-00 (доб. 10705)</p>
+          <p>✉️ <a href="mailto:revenko@sfedu.ru">revenko@sfedu.ru</a></p>
 
-          <h3 className="contacts-subheading">Мы в соцсетях</h3>
+          <h3 className="contacts-subheading">{t.contacts.socialsHeading}</h3>
           <div className="contacts-socials">
-            <a href="https://vk.com" target="_blank" rel="noreferrer">ВКонтакте</a>
-            <a href="https://t.me" target="_blank" rel="noreferrer">Telegram</a>
+            <a href="https://vk.com/ssc_sfedu" target="_blank" rel="noreferrer">ВКонтакте</a>
+            <a href="https://t.me/ssc_sfedu" target="_blank" rel="noreferrer">Telegram</a>
           </div>
         </div>
 
         {/* Правая колонка — форма заявки */}
         <div className="contacts-form-wrapper">
-          <h3>Подать заявку в клуб</h3>
+          <h3>{t.contacts.formHeading}</h3>
 
           {isSent ? (
-            <p className="form-success">
-              Спасибо, заявка отправлена! Мы свяжемся с вами в ближайшее время.
-            </p>
+            <p className="form-success">{t.contacts.success}</p>
           ) : (
             <form className="application-form" onSubmit={handleSubmit}>
               <label>
-                Имя
+                {t.contacts.name}
                 <input
                   type="text"
                   value={applicantName}
                   onChange={(event) => setApplicantName(event.target.value)}
-                  placeholder="Как вас зовут"
+                  placeholder={t.contacts.namePlaceholder}
                 />
               </label>
 
               <label>
-                Контакт для связи
+                {t.contacts.contact}
                 <input
                   type="text"
                   value={contact}
                   onChange={(event) => setContact(event.target.value)}
-                  placeholder="Телефон, e-mail или ник в Telegram"
+                  placeholder={t.contacts.contactPlaceholder}
                 />
               </label>
 
               <label>
-                Интересующая секция
+                {t.contacts.section}
                 <select
                   value={chosenSection}
                   onChange={(event) => setChosenSection(event.target.value)}
                 >
                   {sections.map((section) => (
-                    <option key={section} value={section}>{section}</option>
+                    <option key={section} value={section}>{t.sports[section]}</option>
                   ))}
                 </select>
               </label>
 
               <label>
-                Сообщение
+                {t.contacts.message}
                 <textarea
                   rows="4"
                   value={message}
                   onChange={(event) => setMessage(event.target.value)}
-                  placeholder="Расскажите о своём опыте (необязательно)"
+                  placeholder={t.contacts.messagePlaceholder}
                 ></textarea>
               </label>
 
               {/* Подсказка об ошибке появляется, только если поля не заполнены */}
               {errorText && <p className="form-error">{errorText}</p>}
 
-              <button type="submit" className="action-button">Подать заявку</button>
+              <button type="submit" className="action-button">{t.contacts.submit}</button>
             </form>
           )}
         </div>

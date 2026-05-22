@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import News from './pages/News'
+import NewsArticle from './pages/NewsArticle'
 import Team from './pages/Team'
 import Calendar from './pages/Calendar'
 import Events from './pages/Events'
@@ -17,6 +18,7 @@ function App() {
       <main className="page-content">
         <Routes>
           <Route path="/" element={<News />} />
+          <Route path="/news/:id" element={<NewsArticle />} />
           <Route path="/team" element={<Team />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/events" element={<Events />} />

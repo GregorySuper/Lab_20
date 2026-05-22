@@ -1,12 +1,7 @@
 import { useState } from 'react'
 import eventsList from '../data/events'
+import { useLanguage } from '../i18n/LanguageContext'
 import './pages.css'
-
-const monthNames = [
-  'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-  'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
-]
-const weekDays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс']
 
 // Собираем ключ даты вида "2026-05-24" из года, месяца и дня с ведущими нулями
 function makeDateKey(year, month, day) {
@@ -16,7 +11,9 @@ function makeDateKey(year, month, day) {
 }
 
 function Calendar() {
-  // Месяц, который сейчас показан в календаре (по умолчанию — текущий)
+  const { language, t } = useLanguage()
+
+  // Месяц, который сейчас показан в календаре (по умолчанию — май 2026)
   const [shownDate, setShownDate] = useState(new Date(2026, 4, 1))
   // Дата, выбранная пользователем (по ней показываем мероприятия снизу)
   const [selectedDay, setSelectedDay] = useState(null)
@@ -61,21 +58,18 @@ function Calendar() {
 
   return (
     <section className="container page-section">
-      <h2 className="section-title">Календарь мероприятий</h2>
-      <p className="section-lead">
-        Дни с мероприятиями отмечены точкой. Нажмите на дату, чтобы увидеть,
-        что запланировано.
-      </p>
+      <h2 className="section-title">{t.titles.calendar}</h2>
+      <p className="section-lead">{t.calendarLead}</p>
 
       <div className="calendar">
         <div className="calendar-header">
           <button type="button" onClick={goToPreviousMonth} aria-label="Предыдущий месяц">‹</button>
-          <span className="calendar-month">{monthNames[month]} {year}</span>
+          <span className="calendar-month">{t.months[month]} {year}</span>
           <button type="button" onClick={goToNextMonth} aria-label="Следующий месяц">›</button>
         </div>
 
         <div className="calendar-grid">
-          {weekDays.map((weekDay) => (
+          {t.weekDays.map((weekDay) => (
             <div key={weekDay} className="calendar-weekday">{weekDay}</div>
           ))}
 
@@ -109,13 +103,13 @@ function Calendar() {
           {selectedEvents.length > 0 ? (
             selectedEvents.map((event) => (
               <div key={event.id} className="day-event">
-                <span className="sport-tag">{event.sport}</span>
-                <h3>{event.title}</h3>
-                <p>{event.place} — {event.description}</p>
+                <span className="sport-tag">{t.sports[event.sport]}</span>
+                <h3>{event.title[language]}</h3>
+                <p>{event.place[language]} — {event.description[language]}</p>
               </div>
             ))
           ) : (
-            <p className="no-events">На этот день мероприятий нет.</p>
+            <p className="no-events">{t.noEvents}</p>
           )}
         </div>
       )}
