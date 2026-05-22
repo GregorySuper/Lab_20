@@ -33,10 +33,9 @@ function Events() {
   })
 
   // Оставляем только мероприятия выбранного вида спорта
-  const visibleEvents = eventsList.filter((event) => {
-    return selectedSport === 'Все' || event.sport === selectedSport
-  })
-
+  const visibleEvents = eventsList
+    .filter((event) => selectedSport === 'Все' || event.sport === selectedSport)
+    .sort((firstEvent, secondEvent) => firstEvent.date.localeCompare(secondEvent.date))
   // Открываем окно записи на конкретное мероприятие и очищаем форму
   function openSignUp(event) {
     setSignUpEvent(event)

@@ -11,6 +11,10 @@ function formatDate(dateString) {
 
 function News() {
   const { language, t } = useLanguage()
+  // Сортируем новости по дате от свежих к старым (даты ГГГГ-ММ-ДД сравниваем как строки)                                                                                                        
+  const sortedNews = [...newsList].sort((firstNews, secondNews) =>
+    secondNews.date.localeCompare(firstNews.date)
+  )
 
   return (
     <div>
@@ -34,7 +38,7 @@ function News() {
         <h2 className="section-title">{t.titles.news}</h2>
 
         <div className="cards-grid">
-          {newsList.map((news) => (
+          {sortedNews.map((news) => (
             <Link key={news.id} to={'/news/' + news.id} className="news-card">
               <span className="news-category">{news.category[language]}</span>
               <time className="news-date">{formatDate(news.date)}</time>

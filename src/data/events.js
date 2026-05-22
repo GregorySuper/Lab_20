@@ -73,6 +73,20 @@ const eventsList = [
       en: 'A tournament among faculty teams. Team registration is on the «Contacts» page.',
     },
   },
+  {
+    id: 6,
+    date: '2026-05-24',
+    sport: 'Мини-футбол',
+    title: {
+      ru: 'Кубок ректора по мини-футболу',
+      en: 'Rector cup futsal tournament',
+    },
+    place: { ru: 'Спортивные площадки кампуса ЮФУ', en: 'SFedU campus sports grounds' },
+    description: {
+      ru: 'Турнир среди команд факультетов и выпускников. Регистрация команд — на странице «Контакты».',
+      en: 'A tournament among faculty teams and graduates teams. Team registration is on the «Contacts» page.',
+    },
+  },
 ]
 
 export default eventsList
