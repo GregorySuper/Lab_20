@@ -1,0 +1,11 @@
+{
+  "short_name": "ССК ЮФУ",
+  "name": "Спортивный студенческий клуб ЮФУ «Южная стая»",
+  "icons": [
+    { "src": "img/logo-ssk.svg", "type": "image/svg+xml", "sizes": "any" }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#223364",
+  "background_color": "#ffffff"
+}
