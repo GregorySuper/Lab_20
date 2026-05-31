@@ -33,8 +33,8 @@ function Header() {
         <Link to="/" className="header-logo" onClick={closeMenu}>
           <img src="/img/logo-ssk.svg" alt="Логотип ССК ЮФУ" />
           <span className="header-logo-text">
-            ССК ЮФУ
-            <small>«Южная стая»</small>
+            {t.logo.title}
+            <small>{t.logo.subtitle}</small>
           </span>
         </Link>
 

@@ -2,6 +2,7 @@
 // (источник — досье по открытым данным sfedu.ru и rosstudsport.ru).
 // role и sport — русские ключи (перевод из словаря). about двуязычное.
 // Пустое поле sport означает, что метка вида спорта на карточке не показывается.
+// Как вставить фото участника — см. файл site/КАК_ДОБАВИТЬ_ФОТО.md (поле photo).
 
 const teamMembers = [
   {
@@ -9,6 +10,7 @@ const teamMembers = [
     name: 'Сергей Ревенко',
     role: 'Президент клуба',
     sport: '',
+    photo: '/img/team/revenko.jpg',
     about: {
       ru: 'Основатель ССК ЮФУ (2014) и начальник Управления развития спорта АФКиС ЮФУ.',
       en: 'Founder of SFedU SSC (2014) and head of the Sports Development Office of AFCS SFedU.',
@@ -19,19 +21,21 @@ const teamMembers = [
     name: 'Кристина Романова',
     role: 'Организатор',
     sport: 'Баскетбол',
+    photo: '/img/team/pomanov.jpg',
     about: {
-      ru: 'Отвечает за ключевые турниры и образовательную школу «ССК | СТАРТ», тренер баскетбольной команды «Пантеры ЮФУ».',
-      en: 'In charge of key tournaments and the «SSC | START» school, coach of the «SFedU Panthers» basketball team.',
+      ru: 'Отвечает за ключевые турниры и образовательную школу «ССК | СТАРТ», менеджер баскетбольной команды.',
+      en: 'In charge of key tournaments and the «SSC | START» school, manager of the «SFedU Panthers» basketball team.',
     },
   },
   {
     id: 3,
-    name: 'Александра Бедросова',
+    name: 'Виктория Волк',
     role: 'Тренер',
     sport: 'Баскетбол',
+    photo: '/img/team/volk.jpg',
     about: {
-      ru: 'Тренер женской сборной ЮФУ по баскетболу, методист Управления развития спорта.',
-      en: 'Coach of the SFedU women’s basketball team and a methodologist of the Sports Development Office.',
+      ru: 'Тренер женской сборной ЮФУ по баскетболу.',
+      en: 'Coach of the SFedU women’s basketball team.',
     },
   },
   {
@@ -39,6 +43,7 @@ const teamMembers = [
     name: 'Ярослав Стрижеус',
     role: 'Тренер',
     sport: 'Баскетбол',
+    photo: '/img/team/strish.jpg',
     about: {
       ru: 'Тренер мужской сборной ЮФУ по баскетболу.',
       en: 'Coach of the SFedU men’s basketball team.',
@@ -46,22 +51,24 @@ const teamMembers = [
   },
   {
     id: 5,
-    name: 'Ксения Согомонян',
-    role: 'Тренер',
-    sport: 'Плавание',
+    name: 'Кирилл Козырев',
+    role: 'Председатель ССК',
+    sport: '',
+    photo: '/img/team/koz.jpg',
     about: {
-      ru: 'Тренер по плаванию, проводит тренировки в спорткомплексе «Южный меридиан».',
-      en: 'Swimming coach, runs training sessions at the «Yuzhny Meridian» sports complex.',
+      ru: 'Председатель спортивного студенческого клуба, который защищает интересы активистов в клубе.',
+      en: 'Chairman of the student sports club, which protects the interests of activists in the club.',
     },
   },
   {
     id: 6,
-    name: 'Софья Ярцева',
-    role: 'Капитан команды',
-    sport: 'Волейбол',
+    name: 'Александр Петров',
+    role: 'Руководитель СКК',
+    sport:'Киберспорт',
+    photo: '/img/team/petr.jpg',
     about: {
-      ru: 'Капитан женской сборной по волейболу — чемпионок АССК.Фест 2024.',
-      en: 'Captain of the women’s volleyball team — ASSC.Fest 2024 champions.',
+      ru: 'Организатор киберспортивных соревнований.',
+      en: 'Organizer of esports competitions.',
     },
   },
 ]

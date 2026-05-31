@@ -6,6 +6,9 @@ export const translations = {
     nav: { news: 'Новости', team: 'Команда', calendar: 'Календарь', events: 'Мероприятия', contacts: 'Контакты' },
     apply: 'Подать заявку',
 
+    // Текст логотипа в шапке (название клуба и девиз)
+    logo: { title: 'ССК ЮФУ', subtitle: '«Южная стая»' },
+
     hero: {
       label: 'Спортивный студенческий клуб ЮФУ',
       title: 'Южная стая',
@@ -21,7 +24,7 @@ export const translations = {
       contacts: 'Контакты',
     },
 
-    teamLead: 'Тренеры и спортсмены клуба «Южная стая» — те, кто защищает честь университета на соревнованиях.',
+    teamLead: 'Руководство и тренеры клуба «Южная стая» — те, кто организуют соревнования в университете.',
     eventsLead: 'Ближайшие турниры, тренировки и забеги клуба. Выберите вид спорта, чтобы отфильтровать список.',
     calendarLead: 'Дни с мероприятиями отмечены точкой. Нажмите на дату, чтобы увидеть, что запланировано.',
 
@@ -73,7 +76,7 @@ export const translations = {
       sectionsHeading: 'Разделы',
       contactsHeading: 'Контакты',
       address: '344006, г. Ростов-на-Дону, ул. Большая Садовая, 105/42',
-      rights: (year) => '© ' + year + ' ССК ЮФУ «Южная стая». Сайт разработан студентом в учебных целях.',
+      rights: (year) => '© ' + year + ' ССК ЮФУ «Южная стая».',
     },
 
     notFound: {
@@ -88,6 +91,8 @@ export const translations = {
       'Капитан команды': 'Капитан команды',
       'Спортсмен': 'Спортсмен',
       'Тренер': 'Тренер',
+      'Руководитель СКК': 'Руководитель СКК',
+      'Председатель ССК': 'Председатель ССК',
     },
     sports: {
       'Волейбол': 'Волейбол',
@@ -98,12 +103,15 @@ export const translations = {
       'Бадминтон': 'Бадминтон',
       'Шахматы': 'Шахматы',
       'Гиревой спорт': 'Гиревой спорт',
+      'Киберспорт': 'Киберспорт',
     },
   },
 
   en: {
     nav: { news: 'News', team: 'Team', calendar: 'Calendar', events: 'Events', contacts: 'Contacts' },
     apply: 'Apply now',
+
+    logo: { title: 'SFedU SSC', subtitle: '«Southern Pack»' },
 
     hero: {
       label: 'SFedU Student Sports Club',
@@ -120,7 +128,7 @@ export const translations = {
       contacts: 'Contacts',
     },
 
-    teamLead: 'Coaches and athletes of the «Southern Pack» club — those who defend the honour of the university at competitions.',
+    teamLead: 'The management and coaches of the Southern Pack Club are those who organize competitions at the university.',
     eventsLead: 'Upcoming tournaments, training sessions and races of the club. Pick a sport to filter the list.',
     calendarLead: 'Days with events are marked with a dot. Click a date to see what is scheduled.',
 
@@ -172,7 +180,7 @@ export const translations = {
       sectionsHeading: 'Sections',
       contactsHeading: 'Contacts',
       address: '344006, Rostov-on-Don, Bolshaya Sadovaya St, 105/42',
-      rights: (year) => '© ' + year + ' SFedU SSC «Southern Pack». Website created by a student for educational purposes.',
+      rights: (year) => '© ' + year + ' SFedU SSC «Southern Pack».',
     },
 
     notFound: {
@@ -186,6 +194,8 @@ export const translations = {
       'Капитан команды': 'Team captain',
       'Спортсмен': 'Athlete',
       'Тренер': 'Coach',
+      'Руководитель СКК': 'Manager SKK',
+      'Председатель ССК': 'Chairman SSK',
     },
     sports: {
       'Волейбол': 'Volleyball',
@@ -196,6 +206,7 @@ export const translations = {
       'Бадминтон': 'Badminton',
       'Шахматы': 'Chess',
       'Гиревой спорт': 'Kettlebell lifting',
+      'Киберспорт': 'Cyber sport',
     },
   },
 }

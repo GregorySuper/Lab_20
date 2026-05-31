@@ -61,6 +61,7 @@ function Calendar() {
       <h2 className="section-title">{t.titles.calendar}</h2>
       <p className="section-lead">{t.calendarLead}</p>
 
+      <div className="calendar-layout">
       <div className="calendar">
         <div className="calendar-header">
           <button type="button" onClick={goToPreviousMonth} aria-label="Предыдущий месяц">‹</button>
@@ -97,7 +98,7 @@ function Calendar() {
         </div>
       </div>
 
-      {/* Список мероприятий выбранного дня */}
+      {/* Список мероприятий выбранного дня — справа от календаря (или под ним на телефоне) */}
       {selectedDay && (
         <div className="calendar-day-events">
           {selectedEvents.length > 0 ? (
@@ -113,6 +114,7 @@ function Calendar() {
           )}
         </div>
       )}
+      </div>
     </section>
   )
 }
