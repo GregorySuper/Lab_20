@@ -3,7 +3,6 @@ import newsList from '../data/news'
 import { useLanguage } from '../i18n/LanguageContext'
 import './pages.css'
 
-// Превращаем дату вида "2026-05-18" в "18.05.2026" для показа на карточке
 function formatDate(dateString) {
   const parts = dateString.split('-')
   return parts[2] + '.' + parts[1] + '.' + parts[0]
@@ -11,14 +10,13 @@ function formatDate(dateString) {
 
 function News() {
   const { language, t } = useLanguage()
-  // Сортируем новости по дате от свежих к старым (даты ГГГГ-ММ-ДД сравниваем как строки)                                                                                                        
+  // свежие новости сверху (даты ГГГГ-ММ-ДД сравниваем как строки)
   const sortedNews = [...newsList].sort((firstNews, secondNews) =>
     secondNews.date.localeCompare(firstNews.date)
   )
 
   return (
     <div>
-      {/* Приветственный блок (hero) — первое, что видит пользователь */}
       <section className="hero">
         <div className="container hero-inner">
           <div className="hero-text">
@@ -33,7 +31,6 @@ function News() {
         </div>
       </section>
 
-      {/* Лента новостей. Каждая карточка — ссылка на страницу новости */}
       <section className="container page-section">
         <h2 className="section-title">{t.titles.news}</h2>
 

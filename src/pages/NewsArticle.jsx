@@ -10,13 +10,11 @@ function formatDate(dateString) {
 
 function NewsArticle() {
   const { language, t } = useLanguage()
-  // Берём id новости из адреса (например, /news/3 -> id = "3")
   const { id } = useParams()
 
-  // Ищем новость с таким id. id из адреса — строка, поэтому сравниваем как строки.
+  // id из адреса — строка, поэтому приводим к строке при сравнении
   const news = newsList.find((item) => String(item.id) === id)
 
-  // Если новость с таким номером не найдена — показываем подсказку
   if (!news) {
     return (
       <section className="container page-section">
@@ -34,7 +32,6 @@ function NewsArticle() {
       <time className="news-date">{formatDate(news.date)}</time>
       <h1 className="article-title">{news.title[language]}</h1>
 
-      {/* Полный текст новости — выводим каждый абзац отдельным <p> */}
       {news.content[language].map((paragraph, index) => (
         <p key={index} className="article-paragraph">{paragraph}</p>
       ))}

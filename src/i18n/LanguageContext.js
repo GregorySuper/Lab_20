@@ -1,17 +1,21 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import { translations } from './translations'
 
-// Контекст хранит текущий язык и даёт доступ к переводам из любого компонента
 const LanguageContext = createContext(null)
 
 export function LanguageProvider({ children }) {
-  // Язык по умолчанию — русский
-  const [language, setLanguage] = useState('ru')
+  // запоминаем выбранный язык в localStorage, чтобы он не сбрасывался при перезагрузке
+  const [language, setLanguage] = useState(() => {
+    const savedLanguage = localStorage.getItem('language')
+    return savedLanguage === 'en' || savedLanguage === 'ru' ? savedLanguage : 'ru'
+  })
 
-  // t — это объект с переводами для текущего языка
+  useEffect(() => {
+    localStorage.setItem('language', language)
+  }, [language])
+
   const t = translations[language]
 
-  // Переключение между русским и английским
   function toggleLanguage() {
     setLanguage(language === 'ru' ? 'en' : 'ru')
   }
@@ -23,7 +27,6 @@ export function LanguageProvider({ children }) {
   )
 }
 
-// Удобный хук, чтобы не писать useContext(LanguageContext) в каждом компоненте
 export function useLanguage() {
   return useContext(LanguageContext)
 }

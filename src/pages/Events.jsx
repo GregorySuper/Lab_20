@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import eventsList from '../data/events'
 import { useLanguage } from '../i18n/LanguageContext'
 import './pages.css'
@@ -6,17 +7,17 @@ import './pages.css'
 function Events() {
   const { language, t } = useLanguage()
 
-  // Выбранный вид спорта для фильтра ("Все" — показываем все мероприятия)
   const [selectedSport, setSelectedSport] = useState('Все')
 
-  // Мероприятие, на которое пользователь записывается (для окна записи). null — окно закрыто.
+  // мероприятие, на которое записываемся; null — окно закрыто
   const [signUpEvent, setSignUpEvent] = useState(null)
   const [name, setName] = useState('')
   const [contact, setContact] = useState('')
+  const [consentGiven, setConsentGiven] = useState(false)
   const [errorText, setErrorText] = useState('')
   const [isSignedUp, setIsSignedUp] = useState(false)
 
-  // Дата "2026-05-24" -> "24 мая" (название месяца берём из словаря по языку)
+  // "2026-05-24" -> "24 мая"
   function formatEventDate(dateString) {
     const parts = dateString.split('-')
     const day = Number(parts[2])
@@ -24,7 +25,7 @@ function Events() {
     return day + ' ' + t.monthsGenitive[monthIndex]
   }
 
-  // Собираем список видов спорта без повторов (храним русские ключи, показываем перевод)
+  // список видов спорта без повторов
   const sports = ['Все']
   eventsList.forEach((event) => {
     if (!sports.includes(event.sport)) {
@@ -32,15 +33,16 @@ function Events() {
     }
   })
 
-  // Оставляем только мероприятия выбранного вида спорта
+  // даты ГГГГ-ММ-ДД сравниваются как строки — это совпадает с хронологией
   const visibleEvents = eventsList
     .filter((event) => selectedSport === 'Все' || event.sport === selectedSport)
     .sort((firstEvent, secondEvent) => firstEvent.date.localeCompare(secondEvent.date))
-  // Открываем окно записи на конкретное мероприятие и очищаем форму
+
   function openSignUp(event) {
     setSignUpEvent(event)
     setName('')
     setContact('')
+    setConsentGiven(false)
     setErrorText('')
     setIsSignedUp(false)
   }
@@ -49,11 +51,14 @@ function Events() {
     setSignUpEvent(null)
   }
 
-  // Отправка формы записи. Без указанного контакта записаться нельзя.
   function handleSignUpSubmit(submitEvent) {
     submitEvent.preventDefault()
     if (name.trim() === '' || contact.trim() === '') {
       setErrorText(t.modal.error)
+      return
+    }
+    if (!consentGiven) {
+      setErrorText(t.consent.error)
       return
     }
     setErrorText('')
@@ -65,7 +70,6 @@ function Events() {
       <h2 className="section-title">{t.titles.events}</h2>
       <p className="section-lead">{t.eventsLead}</p>
 
-      {/* Кнопки фильтра по виду спорта */}
       <div className="filter-buttons">
         {sports.map((sport) => (
           <button
@@ -100,10 +104,9 @@ function Events() {
         ))}
       </div>
 
-      {/* Окно записи появляется только после нажатия «Записаться» */}
       {signUpEvent && (
         <div className="modal-overlay" onClick={closeSignUp}>
-          {/* Останавливаем всплытие, чтобы клик внутри окна его не закрывал */}
+          {/* клик по самому окну не должен закрывать его */}
           <div className="modal-window" onClick={(clickEvent) => clickEvent.stopPropagation()}>
             <button type="button" className="modal-close" onClick={closeSignUp} aria-label="Закрыть">×</button>
 
@@ -136,6 +139,19 @@ function Events() {
                     onChange={(inputEvent) => setContact(inputEvent.target.value)}
                     placeholder={t.modal.contactPlaceholder}
                   />
+                </label>
+
+                <label className="form-consent">
+                  <input
+                    type="checkbox"
+                    checked={consentGiven}
+                    onChange={(checkboxEvent) => setConsentGiven(checkboxEvent.target.checked)}
+                  />
+                  <span>
+                    {t.consent.before}
+                    <Link to="/privacy" target="_blank">{t.consent.link}</Link>
+                    {t.consent.after}
+                  </span>
                 </label>
 
                 {errorText && <p className="form-error">{errorText}</p>}

@@ -1,39 +1,42 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import './pages.css'
 
-// Список секций клуба (русские ключи — перевод берётся из словаря)
 const sections = ['Волейбол', 'Баскетбол', 'Мини-футбол', 'Плавание', 'Настольный теннис', 'Бадминтон', 'Шахматы', 'Гиревой спорт']
 
 function Contacts() {
   const { t } = useLanguage()
 
-  // Отдельное состояние под каждое поле формы — так понятнее, что где хранится
   const [applicantName, setApplicantName] = useState('')
   const [contact, setContact] = useState('')
   const [chosenSection, setChosenSection] = useState(sections[0])
   const [message, setMessage] = useState('')
+  const [consentGiven, setConsentGiven] = useState(false)
 
-  // Текст ошибки и признак успешной отправки
   const [errorText, setErrorText] = useState('')
   const [isSent, setIsSent] = useState(false)
 
   function handleSubmit(submitEvent) {
-    submitEvent.preventDefault() // отменяем стандартную перезагрузку страницы
+    submitEvent.preventDefault()
 
-    // Простая проверка: имя и контакт обязательны
     if (applicantName.trim() === '' || contact.trim() === '') {
       setErrorText(t.contacts.error)
       return
     }
 
-    // Если всё хорошо — показываем сообщение об успехе и очищаем форму
+    if (!consentGiven) {
+      setErrorText(t.consent.error)
+      return
+    }
+
     setErrorText('')
     setIsSent(true)
     setApplicantName('')
     setContact('')
     setChosenSection(sections[0])
     setMessage('')
+    setConsentGiven(false)
   }
 
   return (
@@ -41,7 +44,6 @@ function Contacts() {
       <h2 className="section-title">{t.titles.contacts}</h2>
 
       <div className="contacts-layout">
-        {/* Левая колонка — контактная информация клуба */}
         <div className="contacts-info">
           <h3>{t.contacts.clubName}</h3>
           <p className="contacts-department">{t.contacts.department}</p>
@@ -56,7 +58,6 @@ function Contacts() {
           </div>
         </div>
 
-        {/* Правая колонка — форма заявки */}
         <div className="contacts-form-wrapper">
           <h3>{t.contacts.formHeading}</h3>
 
@@ -106,7 +107,19 @@ function Contacts() {
                 ></textarea>
               </label>
 
-              {/* Подсказка об ошибке появляется, только если поля не заполнены */}
+              <label className="form-consent">
+                <input
+                  type="checkbox"
+                  checked={consentGiven}
+                  onChange={(event) => setConsentGiven(event.target.checked)}
+                />
+                <span>
+                  {t.consent.before}
+                  <Link to="/privacy" target="_blank">{t.consent.link}</Link>
+                  {t.consent.after}
+                </span>
+              </label>
+
               {errorText && <p className="form-error">{errorText}</p>}
 
               <button type="submit" className="action-button">{t.contacts.submit}</button>

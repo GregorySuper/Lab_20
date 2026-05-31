@@ -64,7 +64,7 @@
   color: var(--blue);
 }
 
-/* Активная ссылка подчёркивается синим (класс active добавляет NavLink сам) */
+/* активная ссылка */
 .nav-link.active {
   color: var(--navy);
   border-bottom-color: var(--blue);
@@ -122,7 +122,7 @@
   color: var(--gray-light);
 }
 
-/* Мобильная версия: меню сворачивается в выпадающий список под бургером */
+/* мобильное меню */
 @media (max-width: 900px) {
   .burger-button {
     display: flex;
@@ -142,7 +142,6 @@
     padding: 12px 24px 20px;
   }
 
-  /* Класс open добавляется в JS при нажатии на бургер */
   .main-nav.open {
     display: flex;
   }

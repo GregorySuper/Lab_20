@@ -1,12 +1,9 @@
-// Словарь переводов сайта. Все тексты интерфейса хранятся здесь на двух языках.
-// Чтобы добавить язык, нужно дописать ещё один объект по образцу.
-
+// все тексты интерфейса на двух языках
 export const translations = {
   ru: {
     nav: { news: 'Новости', team: 'Команда', calendar: 'Календарь', events: 'Мероприятия', contacts: 'Контакты' },
     apply: 'Подать заявку',
 
-    // Текст логотипа в шапке (название клуба и девиз)
     logo: { title: 'ССК ЮФУ', subtitle: '«Южная стая»' },
 
     hero: {
@@ -77,6 +74,7 @@ export const translations = {
       contactsHeading: 'Контакты',
       address: '344006, г. Ростов-на-Дону, ул. Большая Садовая, 105/42',
       rights: (year) => '© ' + year + ' ССК ЮФУ «Южная стая».',
+      privacy: 'Политика конфиденциальности',
     },
 
     notFound: {
@@ -84,7 +82,46 @@ export const translations = {
       back: 'Вернуться на главную',
     },
 
-    // Названия ролей и видов спорта — общие для нескольких страниц
+    consent: {
+      before: 'Я даю согласие на обработку ',
+      link: 'персональных данных',
+      after: '.',
+      error: 'Чтобы отправить заявку, подтвердите согласие на обработку персональных данных.',
+    },
+
+    privacy: {
+      title: 'Политика конфиденциальности',
+      updated: 'Обновлено: 31 мая 2026 года',
+      intro: 'Эта Политика объясняет, какие персональные данные собирает сайт студенческого спортивного клуба ЮФУ «Южная стая» и как мы их используем. Оставляя заявку на сайте, вы соглашаетесь с условиями этой Политики.',
+      sections: [
+        {
+          heading: 'Какие данные мы собираем',
+          text: 'При подаче заявки в клуб или записи на мероприятие вы указываете: имя, контакт для связи (телефон, e-mail или ник в Telegram), интересующую секцию и, по желанию, сообщение о себе.',
+        },
+        {
+          heading: 'Зачем мы собираем данные',
+          text: 'Данные нужны только для того, чтобы связаться с вами, обработать заявку и записать вас на тренировки или мероприятия клуба. Для других целей они не используются.',
+        },
+        {
+          heading: 'Правовое основание',
+          text: 'Обработка персональных данных выполняется на основании вашего согласия, которое вы даёте при отправке формы. Согласие можно отозвать в любой момент.',
+        },
+        {
+          heading: 'Хранение и передача',
+          text: 'Мы не передаём ваши данные третьим лицам и не используем их для рекламы. Данные хранятся не дольше, чем нужно для обработки заявки.',
+        },
+        {
+          heading: 'Ваши права',
+          text: 'Вы можете запросить доступ к своим данным, их изменение или удаление. Для этого напишите нам на e-mail revenko@sfedu.ru.',
+        },
+        {
+          heading: 'Контакты',
+          text: 'Оператор данных — Управление развития спорта АФКиС ЮФУ. По вопросам обработки данных: revenko@sfedu.ru, +7 (863) 218-40-00 (доб. 10705).',
+        },
+      ],
+      note: 'Сайт создан студентом в учебных целях. Форма заявки работает в демонстрационном режиме: введённые данные не отправляются на сервер и нигде не сохраняются — они остаются только в вашем браузере.',
+    },
+
     roles: {
       'Президент клуба': 'Президент клуба',
       'Организатор': 'Спортивно-массовая работа',
@@ -181,11 +218,52 @@ export const translations = {
       contactsHeading: 'Contacts',
       address: '344006, Rostov-on-Don, Bolshaya Sadovaya St, 105/42',
       rights: (year) => '© ' + year + ' SFedU SSC «Southern Pack».',
+      privacy: 'Privacy policy',
     },
 
     notFound: {
       text: 'There is no such page. Looks like the pack ran the wrong way.',
       back: 'Back to home',
+    },
+
+    consent: {
+      before: 'I consent to the processing of my ',
+      link: 'personal data',
+      after: '.',
+      error: 'Please confirm your consent to the processing of personal data to submit the form.',
+    },
+
+    privacy: {
+      title: 'Privacy policy',
+      updated: 'Updated: 31 May 2026',
+      intro: 'This Policy explains what personal data the website of the SFedU Student Sports Club «Southern Pack» collects and how we use it. By submitting a form on the site, you agree to the terms of this Policy.',
+      sections: [
+        {
+          heading: 'What data we collect',
+          text: 'When you apply to the club or sign up for an event, you provide: your name, a contact (phone, e-mail or Telegram), the sport section you are interested in and, optionally, a message about yourself.',
+        },
+        {
+          heading: 'Why we collect data',
+          text: 'We use the data only to contact you, process your request and sign you up for the club’s training sessions or events. It is not used for any other purpose.',
+        },
+        {
+          heading: 'Legal basis',
+          text: 'Personal data is processed on the basis of your consent, which you give when submitting the form. You may withdraw your consent at any time.',
+        },
+        {
+          heading: 'Storage and sharing',
+          text: 'We do not share your data with third parties and do not use it for advertising. Data is kept no longer than needed to process your request.',
+        },
+        {
+          heading: 'Your rights',
+          text: 'You may request access to your data, its correction or deletion. To do so, write to us at revenko@sfedu.ru.',
+        },
+        {
+          heading: 'Contacts',
+          text: 'Data operator — Sports Development Office, AFCS SFedU. For data processing questions: revenko@sfedu.ru, +7 (863) 218-40-00 (ext. 10705).',
+        },
+      ],
+      note: 'This website was created by a student for educational purposes. The application form runs in demo mode: the data you enter is not sent to a server and is not stored anywhere — it stays only in your browser.',
     },
 
     roles: {

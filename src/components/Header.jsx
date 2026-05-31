@@ -3,7 +3,6 @@ import { NavLink, Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import './Header.css'
 
-// Пункты меню: путь и ключ перевода (сам текст берём из словаря по текущему языку)
 const menuLinks = [
   { path: '/', key: 'news' },
   { path: '/team', key: 'team' },
@@ -13,16 +12,13 @@ const menuLinks = [
 ]
 
 function Header() {
-  // Состояние мобильного меню: открыто оно или нет
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  // Текущий язык, переводы и функция переключения языка
   const { language, toggleLanguage, t } = useLanguage()
 
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen)
   }
 
-  // Закрываем меню после клика по ссылке (нужно для мобильной версии)
   function closeMenu() {
     setIsMenuOpen(false)
   }
@@ -38,7 +34,6 @@ function Header() {
           </span>
         </Link>
 
-        {/* Кнопка-бургер видна только на узких экранах (управляется через CSS) */}
         <button
           type="button"
           className="burger-button"
@@ -63,7 +58,6 @@ function Header() {
             </NavLink>
           ))}
 
-          {/* Переключатель языка: подсвечивается активный */}
           <button
             type="button"
             className="lang-switch"
@@ -75,7 +69,6 @@ function Header() {
             <span className={language === 'en' ? 'lang-active' : ''}>EN</span>
           </button>
 
-          {/* Главная кнопка действия — единственный красный элемент в шапке */}
           <Link to="/contacts" className="action-button header-action" onClick={closeMenu}>
             {t.apply}
           </Link>

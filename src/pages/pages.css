@@ -15,7 +15,7 @@
   margin-bottom: 32px;
 }
 
-/* Сетка карточек — используется на «Новостях» и «Команде» */
+/* сетка карточек */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -38,7 +38,7 @@
   background-color: var(--navy);
   color: var(--white);
   overflow: hidden;
-  /* Скошенный нижний край — отсылка к угловатой форме логотипа-щита */
+  /* скошенный нижний край */
   clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
 }
 
@@ -95,7 +95,6 @@
   transform: translateY(-4px);
 }
 
-/* Подсказка «Читать полностью» внизу карточки */
 .news-more {
   display: inline-block;
   margin-top: 12px;
@@ -183,7 +182,7 @@
   overflow: hidden;
 }
 
-/* Если у участника указано фото — оно заполняет кружок целиком */
+/* фото вместо буквы */
 .team-avatar img {
   width: 100%;
   height: 100%;
@@ -284,8 +283,7 @@
 }
 
 /* ===== Календарь ===== */
-/* На широком экране календарь и мероприятие выбранного дня стоят в одну строку
-   (мероприятие — справа от календаря), на узком — друг под другом */
+/* на широком экране — в одну строку, на узком — друг под другом */
 .calendar-layout {
   display: flex;
   align-items: flex-start;
@@ -366,7 +364,6 @@
   background-color: #dfe6f3;
 }
 
-/* День, в котором есть мероприятия */
 .calendar-cell.has-events {
   color: var(--navy);
   font-weight: bold;
@@ -383,7 +380,6 @@
   background-color: var(--red);
 }
 
-/* Выбранный день подсвечивается синим */
 .calendar-cell.selected {
   background-color: var(--blue);
   color: var(--white);
@@ -432,7 +428,6 @@
   margin-bottom: 8px;
 }
 
-/* Строка с названием курирующего подразделения — приглушённая */
 .contacts-department {
   color: var(--gray);
   margin-top: -8px;
@@ -506,6 +501,26 @@
 
 .application-form textarea {
   resize: vertical;
+}
+
+/* чекбокс согласия */
+.form-consent {
+  flex-direction: row !important;
+  align-items: flex-start;
+  font-weight: normal !important;
+  color: var(--gray) !important;
+  font-size: 13px !important;
+  line-height: 1.5;
+}
+
+.form-consent input {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.form-consent a {
+  color: var(--blue);
+  text-decoration: underline;
 }
 
 .form-error {
@@ -599,6 +614,40 @@
   margin-bottom: 26px;
 }
 
+/* ===== Юридическая страница (политика конфиденциальности) ===== */
+.legal-page {
+  max-width: 760px;
+}
+
+.legal-updated {
+  color: var(--gray);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.legal-intro {
+  font-size: 17px;
+  margin-bottom: 24px;
+}
+
+.legal-section {
+  margin-bottom: 22px;
+}
+
+.legal-section h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.legal-note {
+  margin-top: 28px;
+  padding: 16px 20px;
+  background-color: var(--gray-light);
+  border-radius: 6px;
+  color: var(--gray);
+  font-size: 15px;
+}
+
 /* ===== Адаптивность под планшеты и телефоны ===== */
 @media (max-width: 900px) {
   .cards-grid {
@@ -620,7 +669,7 @@
   }
 }
 
-/* На экранах вроде 800×600 мероприятие уходит под календарь */
+/* на узких экранах мероприятие уходит под календарь */
 @media (max-width: 800px) {
   .calendar-layout {
     flex-direction: column;

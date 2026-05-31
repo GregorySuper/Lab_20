@@ -3,7 +3,6 @@ import eventsList from '../data/events'
 import { useLanguage } from '../i18n/LanguageContext'
 import './pages.css'
 
-// Собираем ключ даты вида "2026-05-24" из года, месяца и дня с ведущими нулями
 function makeDateKey(year, month, day) {
   const monthPart = String(month + 1).padStart(2, '0')
   const dayPart = String(day).padStart(2, '0')
@@ -13,22 +12,18 @@ function makeDateKey(year, month, day) {
 function Calendar() {
   const { language, t } = useLanguage()
 
-  // Месяц, который сейчас показан в календаре (по умолчанию — май 2026)
   const [shownDate, setShownDate] = useState(new Date(2026, 4, 1))
-  // Дата, выбранная пользователем (по ней показываем мероприятия снизу)
   const [selectedDay, setSelectedDay] = useState(null)
 
   const year = shownDate.getFullYear()
   const month = shownDate.getMonth()
 
-  // Сколько дней в месяце
   const daysInMonth = new Date(year, month + 1, 0).getDate()
 
-  // День недели первого числа (в JS воскресенье = 0, поэтому пересчитываем на понедельник = 0)
+  // в JS воскресенье = 0, пересчитываем на неделю с понедельника (понедельник = 0)
   let firstWeekDay = new Date(year, month, 1).getDay()
   firstWeekDay = firstWeekDay === 0 ? 6 : firstWeekDay - 1
 
-  // Переключение на предыдущий и следующий месяц
   function goToPreviousMonth() {
     setShownDate(new Date(year, month - 1, 1))
     setSelectedDay(null)
@@ -38,16 +33,14 @@ function Calendar() {
     setSelectedDay(null)
   }
 
-  // Проверяем, есть ли в этот день хотя бы одно мероприятие
   function hasEvents(day) {
     const key = makeDateKey(year, month, day)
     return eventsList.some((event) => event.date === key)
   }
 
-  // Мероприятия выбранного дня
   const selectedEvents = eventsList.filter((event) => event.date === selectedDay)
 
-  // Собираем массив ячеек: сначала пустые (сдвиг до первого числа), потом числа месяца
+  // сначала пустые ячейки до первого числа, затем сами числа месяца
   const cells = []
   for (let i = 0; i < firstWeekDay; i++) {
     cells.push(null)
@@ -98,7 +91,6 @@ function Calendar() {
         </div>
       </div>
 
-      {/* Список мероприятий выбранного дня — справа от календаря (или под ним на телефоне) */}
       {selectedDay && (
         <div className="calendar-day-events">
           {selectedEvents.length > 0 ? (

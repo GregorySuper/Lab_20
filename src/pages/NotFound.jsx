@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { useLanguage } from '../i18n/LanguageContext'
 import './pages.css'
 
-// Эта страница показывается, когда пользователь зашёл по несуществующему адресу
 function NotFound() {
   const { t } = useLanguage()
 

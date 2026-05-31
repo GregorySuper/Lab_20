@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import ScrollToTop from './components/ScrollToTop'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import News from './pages/News'
@@ -7,13 +8,13 @@ import Team from './pages/Team'
 import Calendar from './pages/Calendar'
 import Events from './pages/Events'
 import Contacts from './pages/Contacts'
+import Privacy from './pages/Privacy'
 import NotFound from './pages/NotFound'
 
-// Главный компонент. Шапка и подвал показываются всегда,
-// а в центре через маршрутизацию меняется содержимое страницы.
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Header />
       <main className="page-content">
         <Routes>
@@ -23,7 +24,7 @@ function App() {
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/events" element={<Events />} />
           <Route path="/contacts" element={<Contacts />} />
-          {/* Если адрес не совпал ни с одним маршрутом — показываем страницу 404 */}
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

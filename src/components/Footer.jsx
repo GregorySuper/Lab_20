@@ -4,7 +4,6 @@ import './Footer.css'
 
 function Footer() {
   const { t } = useLanguage()
-  // Текущий год для копирайта вычисляем автоматически
   const currentYear = new Date().getFullYear()
 
   return (
@@ -37,8 +36,9 @@ function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <div className="container">
-          {t.footer.rights(currentYear)}
+        <div className="container footer-bottom-inner">
+          <span>{t.footer.rights(currentYear)}</span>
+          <Link to="/privacy" className="footer-privacy-link">{t.footer.privacy}</Link>
         </div>
       </div>
     </footer>

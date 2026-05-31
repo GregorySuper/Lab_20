@@ -13,8 +13,6 @@ function Team() {
       <div className="cards-grid">
         {teamMembers.map((member) => (
           <article key={member.id} className="team-card">
-            {/* Если у участника задано поле photo — показываем фотографию,
-                иначе оставляем первую букву имени */}
             <div className="team-avatar">
               {member.photo
                 ? <img src={member.photo} alt={member.name} />
@@ -22,7 +20,6 @@ function Team() {
             </div>
             <h3>{member.name}</h3>
             <p className="team-role">{t.roles[member.role]}</p>
-            {/* Метку вида спорта показываем только если он указан */}
             {member.sport && <span className="sport-tag">{t.sports[member.sport]}</span>}
             <p className="team-about">{member.about[language]}</p>
           </article>

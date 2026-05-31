@@ -5,8 +5,6 @@ import './index.css';
 import App from './App';
 import { LanguageProvider } from './i18n/LanguageContext';
 
-// Точка входа приложения. BrowserRouter нужен для маршрутизации,
-// LanguageProvider — чтобы любой компонент мог получить текущий язык и переводы.
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
