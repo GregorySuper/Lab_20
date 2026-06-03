@@ -12,7 +12,8 @@ function makeDateKey(year, month, day) {
 function Calendar() {
   const { language, t } = useLanguage()
 
-  const [shownDate, setShownDate] = useState(new Date(2026, 4, 1))
+  const today = new Date()   
+  const [shownDate, setShownDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1))
   const [selectedDay, setSelectedDay] = useState(null)
 
   const year = shownDate.getFullYear()
